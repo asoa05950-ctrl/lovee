@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Do you love me 💖</title>
+
+<style>
+body{
+    height:100vh;
+    margin:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+/* Box */
+.box{
+    background:white;
+    padding:35px 45px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+    animation:pop 1s ease;
+}
+
+@keyframes pop{
+    from{transform:scale(0.5); opacity:0;}
+    to{transform:scale(1); opacity:1;}
+}
+
+h1{
+    color:#ff2e63;
+    margin-bottom:25px;
+}
+
+/* Buttons */
+button{
+    padding:12px 30px;
+    font-size:17px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    margin:10px;
+}
+
+#oui{
+    background:#06d6a0;
+    color:white;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+#oui:hover{
+    transform:scale(1.1);
+}
+
+#non{
+    background:#ef476f;
+    color:white;
+    position:absolute;
+}
+
+/* Message */
+#message{
+    display:none;
+    margin-top:20px;
+    font-size:20px;
+    color:#ff2e63;
+    animation:fade 1s ease;
+}
+
+@keyframes fade{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Hearts */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:24px;
+    animation:float 4s linear infinite;
+}
+
+@keyframes float{
+    0%{transform:translateY(0); opacity:1;}
+    100%{transform:translateY(-100vh); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 MUSIC -->
+<audio id="music" loop>
+    <!-- موسيقى مجانية، تخدم مباشرة -->
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="box">
+    <h1>Do you love me Zaki ? 💕</h1>
+    <button id="oui" onclick="oui()">Oui 😍</button>
+    <button id="non">Non 😅</button>
+
+    <div id="message">
+        💖 Zaki, je t’aime 💖<br>
+        — Amina 😌
+    </div>
+</div>
+
+<script>
+const non = document.getElementById("non");
+const music = document.getElementById("music");
+const message = document.getElementById("message");
+
+/* Non مستحيل يتلمس */
+function moveNon(){
+    const x = Math.random() * (window.innerWidth - non.offsetWidth);
+    const y = Math.random() * (window.innerHeight - non.offsetHeight);
+    non.style.left = x + "px";
+    non.style.top = y + "px";
+}
+
+non.addEventListener("mouseenter", moveNon);
+non.addEventListener("mousemove", moveNon);
+non.addEventListener("touchstart", moveNon);
+
+/* Oui */
+function oui(){
+    music.play();                 // تشغيل الموسيقى
+    message.style.display="block";// إظهار الرسالة
+    setInterval(createHeart,300); // قلوب
+}
+
+/* Hearts */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (Math.random()*2 + 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),5000);
+}
+</script>
+
+</body>
+</html>
